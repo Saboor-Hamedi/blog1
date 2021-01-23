@@ -1,10 +1,10 @@
 <?php
-   spl_autoload_register(function($class){
-    (__FILE__) . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR , strtolower($class)) . '.php';
+   spl_autoload_register(function($className){
+      include dirname(__FILE__) . '/' . str_replace('\\', '/' , strtolower($className)) . '.php';
    });
-    // require_once 'config/config.php'
-    //  $require_once = 'database/database.php';
-    // require_once 'core/core.php';
-    $db = new Database();
-    $core = new Core();
+   // require_once 'config/config.php';
+   // require_once 'core/core.php';
+   // require_once 'database/database.php';
+   $db = new database();
+   $core = new core();
 
