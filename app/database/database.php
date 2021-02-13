@@ -1,21 +1,26 @@
-<?php
-
-Class Database{ 
-	public $host   = DB_HOST;
-	public $user   = DB_USER;
-	public $pass   = DB_PASS;
-	public $dbname = DB_NAME;
-	public $link;
-	public $error;
+<?php 
+namespace myBlog\Database;
+Class Database{
+	private $host   = DB_HOST;
+	private $user   = DB_USER;
+	private $pass   = DB_PASS;
+	private $dbname = DB_NAME;
+	private $link ;
+	private $error;
 	public function __construct(){
 		$this->connectDB();
-		
 	}
 	private function connectDB(){
-	$this->link = new mysqli($this->host, $this->user, $this->pass, $this->dbname);
-	if(!$this->link){
-		$this->error ="Connection fail".$this->link->connect_error;
-		return false;
+	try{
+		mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+		$this->link =  @mysqli_connect($this->host, $this->user, $this->pass, $this->dbname);
+		if(!$this->link){
+			// $this->error ="Connection fail".$this->link->connect_error;
+			return false;
+		}
+	}catch(mysqli_sql_exception $e){
+		die("Unfortunately, the details you entered for connection are incorrect!");
+
 	}
  }
 	// Select or Read data
@@ -27,7 +32,6 @@ Class Database{
 			return false;
 		}
 	}
-
 
 	// Insert data
 	public function insert($query){
@@ -59,9 +63,6 @@ Class Database{
 	}
   }
 
-  function closeConnection(){
-	  return $this->link->close();
-  }
  
  
 }

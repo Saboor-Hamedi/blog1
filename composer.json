@@ -1,0 +1,10 @@
+{
+    "name": "saboor/blog",
+    "require": {},
+        "autoload": {
+            "psr-4": {
+                "myBlog\\": "app/"
+            }
+        }
+       
+}
